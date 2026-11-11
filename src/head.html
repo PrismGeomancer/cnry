@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Canary: Send the canary first.</title>
+<meta name="description" content="A Solana browser extension that tests a site with a decoy wallet before your real wallet ever connects.">
+<meta name="theme-color" content="#FFD23F">
+<meta property="og:title" content="Canary: Send the canary first.">
+<meta property="og:description" content="A Solana browser extension that tests a site with a decoy wallet before your real wallet ever connects.">
+<link rel="icon" type="image/png" href="logo-favicon.png">
+
+<!-- ============================================================
+     CONFIG: the only place you need to edit.
+     ============================================================ -->
+<script>
+window.CANARY_CONFIG = {
+  // Your X (Twitter) profile. Replace the placeholder when you have one.
+  x: "https://x.com/",
+  // Handle used in the pre-written share post, without the @. Leave empty to skip the mention.
+  xHandle: "",
+
+  // "pending" while Google reviews the extension, "live" once it is published.
+  // When "live", set installUrl to the Chrome Web Store link. No other edits needed.
+  extensionStatus: "pending",
+  installUrl: "",
+
+  // Reserved for future on-chain lookups. Not called today.
+  rpc: "https://api.mainnet-beta.solana.com",
+
+  // Optional backend. Leave empty to run fully in the browser.
+  //   GET  {api}/stats           -> { checked, reports, calls, silentWeek, callsWeek, feed: [{ host, firstSeen, verdict, heard }] }
+  //   GET  {api}/lookup?host=x   -> { reported: bool, vouches: number, blocklisted: bool }
+  //   POST {api}/report          -> body { host, kind, details, proof, signature?, publicKey?, message? }
+  //   POST {api}/vouch           -> body { host }
+  api: "",
+
+  // Well-known legitimate Solana domains, used for look-alike matching.
+  // Each domain was confirmed by loading the site. Keep this list easy to edit: add or remove rows.
+  knownSites: [
+    { name: "Phantom", domains: ["phantom.app", "phantom.com"] },
+    { name: "Solflare", domains: ["solflare.com"] },
+    { name: "Backpack", domains: ["backpack.app"] },
+    { name: "Jupiter", domains: ["jup.ag"] },
+    { name: "Raydium", domains: ["raydium.io"] },
+    { name: "Orca", domains: ["orca.so"] },
+    { name: "Magic Eden", domains: ["magiceden.io"] },
+    { name: "Tensor", domains: ["tensor.trade"] },
+    { name: "Pump.fun", domains: ["pump.fun"] },
+    { name: "Marinade", domains: ["marinade.finance"] },
+    { name: "Jito", domains: ["jito.network"] },
+    { name: "Drift", domains: ["drift.trade"] },
+    { name: "Kamino", domains: ["kamino.finance", "kamino.com"] },
+    { name: "Sanctum", domains: ["sanctum.so"] },
+    { name: "Helius", domains: ["helius.dev"] },
+    { name: "SolanaFM", domains: ["solana.fm"] },
+    { name: "Solana", domains: ["solana.com"] }
+  ],
+
+  thresholds: {
+    minDomainAgeDays: 30,     // a domain younger than this counts as a soft flag
+    lookalikeDistance: 2,     // max edit distance for a look-alike (scaled down for short names)
+    softFlagsForRuffled: 2    // soft flags needed to move from Singing to Ruffled
+  },
+
+  features: { sound: true, intro: true, wallet: true, api: true }
+};
+</script>
+
+<!-- Decide the intro BEFORE first paint so the page never flashes. -->
+<script>
+(function () {
+  var cfg = window.CANARY_CONFIG;
+  var on = true;
+  try { if (sessionStorage.getItem("cn:intro-seen")) on = false; } catch (e) { }
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) on = false;
+  if (cfg.features.intro === false) on = false;
+  if (location.hash && location.hash !== "#" && location.hash !== "#/") on = false;
+  window.introDone = new Promise(function (r) { window.__introResolve = r; });
+  if (on) document.documentElement.classList.add("intro-on");
+  else window.__introResolve();
+})();
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..800&family=Fraunces:opsz,wght,SOFT,WONK@9..144,400..900,0..100,0..1&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>

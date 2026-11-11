@@ -1,0 +1,346 @@
+</head>
+<body>
+<a class="skip" href="#main" data-skip>Skip to content</a>
+<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<!-- ===== INTRO (removable block) ===== -->
+<div id="intro" role="dialog" aria-label="Intro animation. Press Escape, Enter or Space to skip.">
+  <div class="iscene" id="iScene"></div>
+  <div class="cream-fade" id="iCream"></div>
+  <div class="hud" id="iHud" aria-hidden="true">Level 00 / 03</div>
+  <button class="skipbtn" id="iSkip" type="button">Skip</button>
+</div>
+<!-- ===== /INTRO ===== -->
+
+<header class="top" id="top">
+  <div class="top-in">
+    <a class="brand" href="#/" data-route-link aria-label="Canary, home"><span id="brandLogo"></span><span>Canary</span></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#/demo" class="demo" data-route="/demo" data-route-link>See it work</a>
+      <a href="#/check" data-route="/check" data-route-link>Check a link</a>
+      <a href="#/stopper" data-route="/stopper" data-route-link>Seed stopper</a>
+      <a href="#/calls" data-route="/calls" data-route-link>Warning calls</a>
+      <a href="#/how" data-route="/how" data-route-link>How it works</a>
+      <a href="#/report" data-route="/report" data-route-link>Report</a>
+    </nav>
+    <div class="top-r">
+      <span data-install="pill"></span>
+      <button class="icon-btn" id="soundBtn" type="button" aria-pressed="false" aria-label="Sound off. Turn on" title="Sound is off"></button>
+      <button class="icon-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ================= HOME ================= -->
+<section class="page" id="page-home" data-page="/" aria-label="Home">
+  <div class="wrap hero" id="hero">
+    <div class="hero-copy">
+      <h1 class="h1 riso" id="heroH" aria-label="Send the canary first.">Send the canary first.</h1>
+      <p class="lede">Canary is a browser extension for Solana. Before a new site ever sees your real wallet, it shows the site a decoy, listens to what the site tries, and tells you in plain words.</p>
+      <p class="sub">When the canary goes quiet, don't connect.</p>
+      <div class="cta-row">
+        <a class="btn primary big" href="#/demo" data-route-link data-magnetic>See it work</a>
+        <a class="btn big" href="#/check" data-route-link data-magnetic>Check a link</a>
+      </div>
+      <div class="install-slot" data-install="slot"></div>
+      <p class="hint" style="margin-top:18px"><span class="mono">&#9835;</span> Move your mouse. The canary will follow.</p>
+    </div>
+    <div class="hero-stage" id="heroStage">
+      <canvas id="sun" aria-hidden="true"></canvas>
+      <div class="cage-wrap" id="heroCage" role="button" tabindex="0" aria-label="The canary in its cage. Click to hear it sing. Press and hold to cover the cage."></div>
+      <div class="hero-stamp" id="heroStamp"></div>
+      <div class="hold-hint" aria-hidden="true">Click to sing. Hold to cover the cage.</div>
+    </div>
+  </div>
+
+  <section class="section" id="fake">
+    <div class="wrap">
+      <h2 class="h2" style="max-width:15em">Fake sites look real. The only way to know is to test them.</h2>
+      <p class="lede" style="margin:18px 0 36px">Miners used to send a canary down the shaft first. If it went quiet, they turned back. Canary does the same for fake mints, fake airdrops and fake wallet apps, before your real wallet is anywhere near them.</p>
+      <div class="grid g3" id="fakeCards"></div>
+    </div>
+  </section>
+
+  <section class="section tight" id="tests">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:34px">Three tests. Before you connect.</h2>
+      <div class="grid g3 tests">
+        <div class="card test" data-trust><span class="num">1</span><h3>Ask around</h3><p>What do other people say about this site? Canary checks scam reports and community vouches. If nobody has looked at it yet, it tells you so and walks you through a quick check of your own.</p></div>
+        <div class="card test" data-fake><span class="num">2</span><h3>Spot the fake</h3><p>Look-alike spelling, brand-new domains, address tricks. If a site is dressed up as something it isn't, Canary notices.</p></div>
+        <div class="card test y"><span class="num" style="background:var(--paper)">3</span><h3>Send the canary</h3><p>Canary shows the site a decoy wallet with a small balance. If the site tries to take it, or asks for something it shouldn't, you hear about it before your real wallet is involved, in plain words.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="story" id="story" aria-label="How Canary tests a fake claim page">
+    <div class="story-vp" id="storyVp">
+      <div class="story-side">
+        <h2 class="h2">Watch a fake airdrop fail the tests.</h2>
+        <p>Scroll. The canary goes in first.</p>
+        <ol class="slist" id="storyList">
+          <li data-i="0"><span class="n">1</span><span><b>Ask around</b><small>Other people have reported this site.</small></span></li>
+          <li data-i="1"><span class="n">2</span><span><b>Spot the fake</b><small>Look-alike letters get circled.</small></span></li>
+          <li data-i="2"><span class="n">3</span><span><b>Send the canary</b><small>A decoy goes in. The request gets read out.</small></span></li>
+        </ol>
+        <button class="btn primary story-replay" id="storyReplay" type="button">Replay</button>
+      </div>
+      <div class="story-stage" id="storyStage"></div>
+    </div>
+  </section>
+
+  <section class="section" id="scenarios">
+    <div class="wrap">
+      <h2 class="h2">See Canary in action</h2>
+      <p class="lede" style="margin:14px 0 32px">Pick a scam. Hit Connect. Watch the canary work.</p>
+      <div class="grid g2" id="scenCards"></div>
+    </div>
+  </section>
+
+  <section class="section" id="showcase">
+    <div class="wrap">
+      <h2 class="h2">See it at the door</h2>
+      <p class="lede" style="margin:14px 0 28px">This is what Canary does the moment a site asks for your wallet.</p>
+      <div class="showcase-grid" id="homeShowcase"></div>
+    </div>
+  </section>
+
+  <section class="section tight" id="stopTeaser">
+    <div class="wrap">
+      <div class="card y" style="display:grid;grid-template-columns:minmax(0,1fr) auto;gap:24px;align-items:center">
+        <div>
+          <h2 class="h2" style="margin-bottom:12px">Your recovery phrase never goes on a website.</h2>
+          <p class="lede" style="margin-bottom:18px">If you type or paste your 12 or 24 recovery words into a web page, Canary stops you before the page can read them. Almost no website ever needs them.</p>
+          <p class="lede" style="margin-bottom:18px">If a page asks anyway, Canary can hand it a decoy phrase instead, and tell you if a scam site ever tries to use it.</p>
+          <a class="btn dark" href="#/stopper" data-route-link>See it work</a>
+        </div>
+        <div id="stopTeaserArt" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="practice">
+    <div class="wrap practice-wrap">
+      <div>
+        <h2 class="h2">Try to fool the canary</h2>
+        <p class="lede" style="margin:14px 0 18px">Hit Connect on this scam site and watch Canary stop you.</p>
+      </div>
+      <div class="practice-stage" id="practiceStage"></div>
+    </div>
+  </section>
+
+  <section class="section" id="ear">
+    <div class="wrap ear">
+      <div>
+        <h2 class="h2">The Ear gets sharper</h2>
+        <p class="lede" style="margin-top:14px">Every confirmed scam teaches Canary a new warning call. Sites built from the same kit, using the same wallets or the same tricks get caught faster next time.</p>
+        <p class="note-small" id="earWeek" style="margin-top:6px"></p>
+        <a class="btn" href="#/calls" data-route-link>Warning calls</a>
+      </div>
+      <div class="tiles" data-tiles></div>
+    </div>
+  </section>
+
+  <section class="section tight" id="ctaHome">
+    <div class="wrap">
+      <div class="card y install-hero">
+        <h2 class="h2">Send the canary first.</h2>
+        <div class="install-slot" data-install="slot"></div>
+        <a class="link" href="#/install" data-route-link>See what you get</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faqHome">
+    <div class="wrap">
+      <h2 class="h2" style="margin-bottom:26px">Questions</h2>
+      <div class="faq" id="faqList"></div>
+    </div>
+  </section>
+</section>
+
+<!-- ================= SEE IT WORK ================= -->
+<section class="page" id="page-demo" data-page="/demo" aria-label="See it work">
+  <div class="wrap">
+    <div class="page-head">
+      <h1 class="h1 riso" style="font-size:clamp(2.6rem,6vw,5rem)">See Canary in action</h1>
+      <p>Pick a scam. Hit Connect. Watch the canary work.</p>
+    </div>
+    <div class="tabs" role="tablist" aria-label="Scenario" id="demoTabs"></div>
+    <div class="demo-split">
+      <div>
+        <div class="demo-top">
+          <ol class="stepper" id="demoSteps" aria-label="Steps"></ol>
+          <div class="demo-ctl">
+            <button class="btn primary" id="demoNext" type="button">Next</button>
+            <button class="btn" id="demoReplay" type="button">Replay</button>
+          </div>
+        </div>
+        <div id="demoSite"></div>
+        <div class="card what" id="demoWhat" hidden></div>
+      </div>
+      <div class="demo-right" id="demoRight"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHECK ================= -->
+<section class="page" id="page-check" data-page="/check" aria-label="Check a link">
+  <div class="wrap">
+    <div class="page-head"><h1 class="h1 riso" style="font-size:clamp(2.6rem,6vw,5rem)">Check a link</h1><p>Paste a site address. The canary takes a look.</p></div>
+    <form class="form" id="checkForm" novalidate style="max-width:760px">
+      <div class="fld">
+        <label for="chkIn">Site address</label>
+        <div class="checkrow"><input class="field" id="chkIn" type="text" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="example.com"><button class="btn primary" type="submit" data-magnetic>Send the canary</button></div>
+        <p class="hint-t">Paste the address of the site that's asking you to connect.</p>
+        <p class="err" id="chkErr" role="alert"></p>
+      </div>
+    </form>
+    <div style="max-width:760px">
+      <div class="perches" id="perches" aria-hidden="true"></div>
+      <div id="chkCard"></div>
+      <div id="txCard"></div>
+      <div class="card decides b">
+        <h3 style="margin-bottom:8px">How Canary decides</h3>
+        <p style="margin:0">"Silent" if the site is reported, blocklisted or a close look-alike of a well-known site. "Ruffled" if there are two or more softer flags, like a brand-new domain, scam-style words or no reviews. Otherwise "Singing". Every flag is listed above, with its reason.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STOPPER ================= -->
+<section class="page" id="page-stopper" data-page="/stopper" aria-label="Seed phrase stopper">
+  <div class="wrap">
+    <div class="page-head"><h1 class="h1 riso" style="font-size:clamp(2.6rem,6vw,5rem)">The seed phrase stopper</h1><p>See what happens when a recovery phrase lands on a web page.</p></div>
+    <div class="warn-big" role="note">Never type your real recovery phrase anywhere on this site. Use the test words. Nothing here is stored or sent.</div>
+    <div class="stop-wrap">
+      <div class="form-stage" id="stopStage"></div>
+      <div>
+        <div class="card b">
+          <h3 style="margin-bottom:8px">What the stopper does</h3>
+          <p>If you type or paste 12 or 24 recovery words into a web page, Canary stops you before the page can read them. Almost no website ever needs them.</p>
+        </div>
+        <div class="card" style="margin-top:20px"><h3 style="margin-bottom:8px">Decoys and the tripwire</h3>
+          <p>When the stopper catches a phrase, Canary can scramble up a decoy and hand that to the page instead. It is made up from scratch, not a scrambled copy of yours, so it gives away nothing about your real phrase and opens none of your wallets.</p>
+          <p style="margin:0">Canary then keeps watch on the decoy. If a site tries to use it, you get a notification right away.</p></div>
+        <p class="note-small" id="stopMode" style="margin-top:14px"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= REPORT ================= -->
+<section class="page" id="page-report" data-page="/report" aria-label="Report a site">
+  <div class="wrap">
+    <div class="page-head"><h1 class="h1 riso" style="font-size:clamp(2.6rem,6vw,5rem)">Report a site</h1><p>Help the Ear learn.</p></div>
+    <div id="reportHost"></div>
+  </div>
+</section>
+
+<!-- ================= CALLS ================= -->
+<section class="page" id="page-calls" data-page="/calls" aria-label="Warning calls">
+  <div class="wrap">
+    <div class="page-head"><h1 class="h1 riso" style="font-size:clamp(2.6rem,6vw,5rem)">Warning calls</h1><p>What the Ear has learned so far.</p></div>
+    <div class="tiles" data-tiles></div>
+    <h2 class="h3" style="margin:44px 0 6px">How a call is learned</h2>
+    <ol class="steps4"><li>Reported.</li><li>Checked.</li><li>Matched with similar sites.</li><li>Added to the Ear.</li></ol>
+    <h2 class="h3" style="margin:44px 0 14px">The feed</h2>
+    <div id="callsFeed"></div>
+  </div>
+</section>
+
+<!-- ================= HOW ================= -->
+<section class="page" id="page-how" data-page="/how" aria-label="How it works">
+  <div class="wrap">
+    <div class="page-head"><h1 class="h1 riso" style="font-size:clamp(2.6rem,6vw,5rem)">How Canary works</h1></div>
+    <div class="how-steps">
+      <div class="card"><span class="num">1</span><div><h3>Install</h3><p>Add Canary to Chrome.</p></div></div>
+      <div class="card"><span class="num">2</span><div><h3>Browse</h3><p>It stays quiet until a site asks to connect or sign.</p></div></div>
+      <div class="card"><span class="num">3</span><div><h3>Test</h3><p>Three tests run, with a decoy wallet, before your real one connects.</p></div></div>
+      <div class="card"><span class="num">4</span><div><h3>Decide</h3><p>Singing, Ruffled or Silent, with reasons. You choose.</p></div></div>
+    </div>
+    <h2 class="h2" style="margin:56px 0 20px">What Canary watches for</h2>
+    <ul class="watch-list"><li>Look-alike addresses</li><li>Brand-new domains</li><li>Sites reported by others</li><li>Requests that let a site move all your tokens</li><li>Recovery phrases typed into web pages</li><li>Sites that try to use a decoy phrase you gave them</li></ul>
+    <h2 class="h2" style="margin:56px 0 16px">What the extension can see</h2>
+    <p class="lede">The address of the site you're on, and when that site asks to connect or sign. It does not read your passwords or your keys.</p>
+    <h2 class="h2" style="margin:56px 0 20px">The three verdicts</h2>
+    <div class="grid g3" id="verdictCards"></div>
+    <p class="lede" style="margin-top:40px;font-weight:700">Canary warns. You decide. It can't see everything, so never sign something you don't understand.</p>
+  </div>
+</section>
+
+<!-- ================= INSTALL ================= -->
+<section class="page" id="page-install" data-page="/install" aria-label="Add Canary">
+  <div class="wrap">
+    <div class="page-head"><h1 class="h1 riso" style="font-size:clamp(2.6rem,6vw,5rem)">Add Canary</h1></div>
+    <div class="card y install-hero" id="installHero">
+      <div class="install-slot" data-install="slot"></div>
+      <p data-install="support" style="margin:0;max-width:40em"></p>
+    </div>
+    <div class="grid g3" style="margin-top:28px">
+      <div class="card"><span class="num" style="display:inline-grid;width:44px;height:44px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);place-items:center;font-family:var(--f-head);font-weight:900;margin-bottom:10px">1</span><h3>Install</h3><p style="margin:6px 0 0">Add Canary to Chrome.</p></div>
+      <div class="card"><span class="num" style="display:inline-grid;width:44px;height:44px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);place-items:center;font-family:var(--f-head);font-weight:900;margin-bottom:10px">2</span><h3>Pin it</h3><p style="margin:6px 0 0">Pin the canary to your toolbar so you can always see it.</p></div>
+      <div class="card"><span class="num" style="display:inline-grid;width:44px;height:44px;border-radius:50%;background:var(--yellow);border:2px solid var(--ink);place-items:center;font-family:var(--f-head);font-weight:900;margin-bottom:10px">3</span><h3>Browse as usual</h3><p style="margin:6px 0 0">Canary stays quiet until a site asks for your wallet.</p></div>
+    </div>
+    <div class="perm" style="margin-top:28px">
+      <div class="card b"><h3>What it can see</h3><ul><li>The address of the site you're on</li><li>When that site asks to connect or sign</li></ul></div>
+      <div class="card"><h3>What it never touches</h3><ul><li>Your passwords</li><li>Your seed phrase or private keys</li><li>Your funds. It never moves them</li></ul></div>
+    </div>
+    <h2 class="h2" style="margin:64px 0 8px">See it at the door</h2>
+    <p class="lede" style="margin-bottom:26px">This is what Canary does the moment a site asks for your wallet.</p>
+    <div class="showcase-grid" id="installGallery"></div>
+    <h2 class="h2" style="margin:64px 0 16px">Roadmap</h2>
+    <div class="road"><span>Now: Chrome</span><span>Next: alerts when something changes on your wallet</span><span>Later: other browsers</span></div>
+  </div>
+</section>
+
+<!-- ================= SHOT (store art) ================= -->
+<section class="page" id="page-shot" data-page="/shot" aria-label="Store art"><div id="shotHost"></div></section>
+</main>
+
+<footer class="footer" id="footer">
+  <div class="foot-hem" aria-hidden="true"></div>
+  <div class="foot-bird" id="footBird" role="button" tabindex="0" aria-label="A small canary perched on the footer. Click to hear it sing."></div>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-main">
+        <a class="brand" href="#/" data-route-link><span id="footLogo"></span><span>Canary</span></a>
+        <p class="foot-sign">Send the canary first.</p>
+        <p class="foot-sub">When the canary goes quiet, don't connect.</p>
+        <div class="install-slot" data-install="slot"></div>
+      </div>
+      <nav class="foot-col" aria-label="Try it">
+        <h2>Try it</h2>
+        <ul><li><a href="#/demo" data-route-link>See it work</a></li><li><a href="#/check" data-route-link>Check a link</a></li><li><a href="#/stopper" data-route-link>Seed stopper</a></li></ul>
+      </nav>
+      <nav class="foot-col" aria-label="Learn">
+        <h2>Learn</h2>
+        <ul><li><a href="#/how" data-route-link>How it works</a></li><li><a href="#/calls" data-route-link>Warning calls</a></li><li><a href="#/install" data-route-link>Add Canary</a></li></ul>
+      </nav>
+      <nav class="foot-col" aria-label="More">
+        <h2>More</h2>
+        <ul><li><a href="#/report" data-route-link>Report</a></li><li><a href="#" id="xLink" target="_blank" rel="noopener noreferrer">X</a></li><li><a href="#" id="replayIntro">Replay intro</a></li></ul>
+      </nav>
+    </div>
+    <div class="foot-base">
+      <p class="disc">Canary is a warning tool, not financial advice or a guarantee. Scams change fast and you can lose funds even if the canary keeps singing.</p>
+      <button class="btn small foot-top" type="button" id="toTop">Back to top</button>
+    </div>
+  </div>
+</footer>
+
+<div id="cursorBird" aria-hidden="true"></div>
+<div id="wipe" aria-hidden="true"><div class="sheet b"></div><div class="sheet"></div></div>
+<div class="modal" id="walletModal" role="dialog" aria-modal="true" aria-labelledby="wmT">
+  <div class="modal-in">
+    <h3 id="wmT">Connect a wallet (optional)</h3>
+    <p class="note-small">Only needed to sign a report. Canary only asks you to sign a message and never moves your funds.</p>
+    <div id="wList"></div>
+    <button class="btn small" type="button" id="wClose">Close</button>
+  </div>
+</div>
+<div id="notif" class="notif" role="alert" aria-hidden="true"></div>
+<div id="toast" role="status" aria-live="polite"></div>
